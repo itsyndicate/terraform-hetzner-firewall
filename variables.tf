@@ -14,7 +14,7 @@ variable "ssh_source_ips" {
 }
 
 variable "ssh_port" {
-  default = 65321
+  default = 22
 }
 
 variable "allow_egress_traffic" {
