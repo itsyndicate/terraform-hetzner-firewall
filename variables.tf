@@ -8,13 +8,14 @@ variable "name" {
 
 }
 variable "ssh_source_ips" {
-  type = list(string)
-  default = ["0.0.0.0/0", "::/0"]
+  type        = list(string)
+  default     = ["0.0.0.0/0", "::/0"]
   description = "Source networks that have SSH access to the servers"
 }
 
 variable "ssh_port" {
-  default = 22
+  default     = 22
+  description = "TCP port the incoming SSH rule opens"
 }
 
 variable "allow_egress_traffic" {
@@ -36,8 +37,8 @@ variable "block_icmp_ping_in" {
 }
 
 variable "extra_firewall_rules" {
-  type = list(any)
-  default = []
+  type        = list(any)
+  default     = []
   description = "Additional firewall rules to apply to the cluster"
 }
 
