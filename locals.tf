@@ -3,7 +3,7 @@
 #-----------------------------------------------------------------------------------------------------------------------
 locals {
   base_firewall_rules = concat(
-      var.ssh_source_ips == null ? [] : [
+    var.ssh_source_ips == null ? [] : [
       # Allow all traffic to the ssh port
       {
         description = "Allow Incoming SSH Traffic"
@@ -14,81 +14,81 @@ locals {
       },
     ],
     # Egress traffic
-      !var.allow_egress_traffic ? [] : [
+    !var.allow_egress_traffic ? [] : [
       # Egress ICMP
       {
-        description = "Allow Outbound ICMP Ping Requests"
-        direction   = "out"
-        protocol    = "icmp"
-        port        = ""
+        description     = "Allow Outbound ICMP Ping Requests"
+        direction       = "out"
+        protocol        = "icmp"
+        port            = ""
         destination_ips = ["0.0.0.0/0", "::/0"]
       },
       # Egress DNS tcp
       {
-        description = "Allow Outbound TCP DNS Requests"
-        direction   = "out"
-        protocol    = "tcp"
-        port        = "53"
+        description     = "Allow Outbound TCP DNS Requests"
+        direction       = "out"
+        protocol        = "tcp"
+        port            = "53"
         destination_ips = ["0.0.0.0/0", "::/0"]
       },
       # Egress DNS udp
       {
-        description = "Allow Outbound UDP DNS Requests"
-        direction   = "out"
-        protocol    = "udp"
-        port        = "53"
+        description     = "Allow Outbound UDP DNS Requests"
+        direction       = "out"
+        protocol        = "udp"
+        port            = "53"
         destination_ips = ["0.0.0.0/0", "::/0"]
       },
       # Egress HTTP
       {
-        description = "Allow Outbound HTTP Requests"
-        direction   = "out"
-        protocol    = "tcp"
-        port        = "80"
+        description     = "Allow Outbound HTTP Requests"
+        direction       = "out"
+        protocol        = "tcp"
+        port            = "80"
         destination_ips = ["0.0.0.0/0", "::/0"]
       },
       # Egress HTTPs
       {
-        description = "Allow Outbound HTTPS Requests"
-        direction   = "out"
-        protocol    = "tcp"
-        port        = "443"
+        description     = "Allow Outbound HTTPS Requests"
+        direction       = "out"
+        protocol        = "tcp"
+        port            = "443"
         destination_ips = ["0.0.0.0/0", "::/0"]
       },
       # Egress NTP
       {
-        description = "Allow Outbound UDP NTP Requests"
-        direction   = "out"
-        protocol    = "udp"
-        port        = "123"
+        description     = "Allow Outbound UDP NTP Requests"
+        direction       = "out"
+        protocol        = "udp"
+        port            = "123"
         destination_ips = ["0.0.0.0/0", "::/0"]
       }
     ],
-      !var.allow_ingress_web ? [] : [
+    !var.allow_ingress_web ? [] : [
       # Ingress WEB
       {
         description = "Allow Incoming HTTP Connections"
         direction   = "in"
         protocol    = "tcp"
         port        = "80"
-        source_ips = ["0.0.0.0/0", "::/0"]
+        source_ips  = ["0.0.0.0/0", "::/0"]
       },
       {
         description = "Allow Incoming HTTPS Connections"
         direction   = "in"
         protocol    = "tcp"
         port        = "443"
-        source_ips = ["0.0.0.0/0", "::/0"]
+        source_ips  = ["0.0.0.0/0", "::/0"]
       }
     ],
-      var.block_icmp_ping_in ? [] : [
+    var.block_icmp_ping_in ? [] : [
       # Block Ingress ICMP
       {
         description = "Allow Incoming ICMP Ping Requests"
         direction   = "in"
         protocol    = "icmp"
         port        = ""
-        source_ips = ["0.0.0.0/0", "::/0"]
+        source_ips  = ["0.0.0.0/0", "::/0"]
       }
     ]
   )
